@@ -93,7 +93,7 @@ async function syncDialogs() {
       const name = e.firstName
         ? (e.firstName + (e.lastName ? " " + e.lastName : ""))
         : e.title || "Unknown";
-      const isGrp = !!(e.megagroup || e.broadcast || e.gigagroup);
+      const isGrp = !!(e.megagroup || e.broadcast || e.gigagroup || e.className === "Chat");
       const isChannel = !!e.broadcast;
       const lastMsg = d.message && d.message.message ? d.message.message : "";
       const unread = d.unreadCount || 0;
@@ -684,7 +684,10 @@ async function main() {
   tgClient.addEventHandler(async (event) => {
     const msg = event.message;
     if (!msg) return;
-    const cid = msg.chatId ? msg.chatId.toString() : null;
+    // Guna ID mentah (sama format dengan dialogs.cid), bukan msg.chatId (-100xxx utk group)
+    const p = msg.peerId || {};
+    const raw = p.userId || p.chatId || p.channelId;
+    const cid = raw ? raw.toString() : null;
     if (!cid) return;
 
     const dlg = allDialogs.find((d) => d.entity && d.entity.id && d.entity.id.toString() === cid);
