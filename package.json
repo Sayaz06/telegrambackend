@@ -1,0 +1,17 @@
+{
+  "name": "mygram-worker",
+  "version": "1.0.0",
+  "description": "MyGram Backend Worker — MTProto bridge via gramjs",
+  "main": "worker.js",
+  "scripts": {
+    "start": "node worker.js",
+    "login": "node login.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.0.0",
+    "telegram": "^2.26.22"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
