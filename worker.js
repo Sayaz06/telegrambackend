@@ -31,7 +31,9 @@ const TYPING_LIVE_STALE_MS = 12000;
 const tidur = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // ── Config ──────────────────────────────────────────────────────
-const SERVICE_ACCOUNT = require("./serviceAccount.json");
+const SERVICE_ACCOUNT = process.env.SERVICE_ACCOUNT_JSON
+  ? JSON.parse(process.env.SERVICE_ACCOUNT_JSON)
+  : require("./serviceAccount.json");
 const UID = "jcATY6Xc0GdvgA1kGbNLEvoygDy1";
 const DB_PREFIX = `users/${UID}/mygram_worker`;
 
